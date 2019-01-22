@@ -37,6 +37,11 @@
                BlueprintName = "SwiftDigest-macOSTests"
                ReferencedContainer = "container:SwiftDigest.xcodeproj">
             </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "MD5DigestPerformanceTests/testMD5DigestShining()">
+               </Test>
+            </SkippedTests>
          </TestableReference>
       </Testables>
       <MacroExpansion>
