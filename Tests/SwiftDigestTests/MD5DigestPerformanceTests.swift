@@ -1,9 +1,10 @@
 import SwiftDigest
 import XCTest
+#if !os(Linux)
 import CommonCrypto
+#endif
 
-
-final class MD5DigestPerformanceTests: XCTestCase {
+public final class MD5DigestPerformanceTests: XCTestCase {
 
     static var hugeTestData: Data {
         var data = "All work and no play makes Jack a dull boy\n".data(using: .utf8)!
@@ -30,6 +31,21 @@ final class MD5DigestPerformanceTests: XCTestCase {
 
     }
 
+    /// Disabled because taking too much time on CI builds
+    func NOtestMD5DigestShining() {
+        let input = MD5DigestPerformanceTests.hugeTestData
+
+        self.measure {
+            let digest = input.md5
+            XCTAssertEqual(
+                digest,
+                MD5Digest(rawValue: "91ad3b24f924e7999f10c1accd3cd510")
+            )
+        }
+
+    }
+
+    #if !os(Linux)
     func testCommonCryptoSmallMessage() {
         let input = "The quick brown fox jumps over the lazy dog".data(using: .utf8)!
 
@@ -54,19 +70,6 @@ final class MD5DigestPerformanceTests: XCTestCase {
         }
     }
 
-    func NOtestMD5DigestShining() {
-        let input = MD5DigestPerformanceTests.hugeTestData
-
-        self.measure {
-            let digest = input.md5
-            XCTAssertEqual(
-                digest,
-                MD5Digest(rawValue: "91ad3b24f924e7999f10c1accd3cd510")
-            )
-        }
-
-    }
-
     func testCommonCryptoShining() {
         let input = MD5DigestPerformanceTests.hugeTestData
 
@@ -87,12 +90,20 @@ final class MD5DigestPerformanceTests: XCTestCase {
             )
         }
     }
-    
-    static var allTests = [
+    #endif
+
+    #if !os(Linux)
+    public static var allTests = [
         ("testMD5DigestSmallMessage", testMD5DigestSmallMessage),
+        //("testMD5DigestShining", testMD5DigestShining), // Too long
         ("testCommonCryptoSmallMessage", testCommonCryptoSmallMessage),
-        //("testMD5DigestShining", testMD5DigestShining),
         ("testCommonCryptoShining", testCommonCryptoShining),
     ]
+    #else
+    public static var allTests = [
+        ("testMD5DigestSmallMessage", testMD5DigestSmallMessage),
+        //("testMD5DigestShining", testMD5DigestShining), // Too long
+    ]
+    #endif
 
 }

@@ -2,7 +2,7 @@ import SwiftDigest
 import XCTest
 
 
-final class MD5Tests: XCTestCase {
+public final class MD5DigestTests: XCTestCase {
 
     func testEmpty() {
         XCTAssertEqual(
@@ -85,7 +85,7 @@ final class MD5Tests: XCTestCase {
         XCTAssertEqual(digest, sut)
     }
     
-    static var allTests = [
+    public static var allTests = [
         ("testEmpty", testEmpty),
         ("testData", testData),
         ("testBytes", testBytes),
