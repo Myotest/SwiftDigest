@@ -40,11 +40,11 @@
 		91A577DB1F724B3A00A09D42 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		91A577E01F724B3A00A09D42 /* SwiftDigestTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftDigestTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		91A577E71F724B3A00A09D42 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		91A577F11F724B8300A09D42 /* MD5DigestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MD5DigestTests.swift; sourceTree = "<group>"; };
-		91A577F21F724B8B00A09D42 /* MD5Digest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MD5Digest.swift; sourceTree = "<group>"; };
+		91A577F11F724B8300A09D42 /* MD5DigestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MD5DigestTests.swift; path = SwiftDigestTests/MD5DigestTests.swift; sourceTree = "<group>"; };
+		91A577F21F724B8B00A09D42 /* MD5Digest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MD5Digest.swift; path = SwiftDigest/MD5Digest.swift; sourceTree = "<group>"; };
 		91ADDD4B1F72C21A00C2A8EC /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		91ADDD4C1F72C22100C2A8EC /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		91CADC551F7FB81D0045546F /* MD5DigestPerformanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MD5DigestPerformanceTests.swift; sourceTree = "<group>"; };
+		91CADC551F7FB81D0045546F /* MD5DigestPerformanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MD5DigestPerformanceTests.swift; path = SwiftDigestTests/MD5DigestPerformanceTests.swift; sourceTree = "<group>"; };
 		F8AA162921F764C000C133C4 /* SwiftDigest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftDigest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8AA163121F764C000C133C4 /* SwiftDigest-macOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SwiftDigest-macOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8AA163821F764C000C133C4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -122,7 +122,8 @@
 				91A577DB1F724B3A00A09D42 /* Info.plist */,
 				91A577F21F724B8B00A09D42 /* MD5Digest.swift */,
 			);
-			path = SwiftDigest;
+			name = SwiftDigest;
+			path = Sources;
 			sourceTree = "<group>";
 		};
 		91A577E41F724B3A00A09D42 /* SwiftDigestTests */ = {
@@ -132,7 +133,8 @@
 				91A577F11F724B8300A09D42 /* MD5DigestTests.swift */,
 				91CADC551F7FB81D0045546F /* MD5DigestPerformanceTests.swift */,
 			);
-			path = SwiftDigestTests;
+			name = SwiftDigestTests;
+			path = Tests;
 			sourceTree = "<group>";
 		};
 		F8AA163521F764C000C133C4 /* SwiftDigest-macOSTests */ = {
@@ -533,7 +535,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = SwiftDigest/Info.plist;
+				INFOPLIST_FILE = Sources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "de.nikolai-ruhe.SwiftDigest";
@@ -556,7 +558,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = SwiftDigest/Info.plist;
+				INFOPLIST_FILE = Sources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "de.nikolai-ruhe.SwiftDigest";
@@ -574,7 +576,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = GDDD8834V3;
-				INFOPLIST_FILE = SwiftDigestTests/Info.plist;
+				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "de.nikolai-ruhe.SwiftDigestTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -591,7 +593,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = GDDD8834V3;
-				INFOPLIST_FILE = SwiftDigestTests/Info.plist;
+				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "de.nikolai-ruhe.SwiftDigestTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -617,7 +619,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_VERSION = A;
-				INFOPLIST_FILE = "$(SRCROOT)/SwiftDigest/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Sources/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
@@ -648,7 +650,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_VERSION = A;
-				INFOPLIST_FILE = "$(SRCROOT)/SwiftDigest/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Sources/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -727,7 +729,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "$(SRCROOT)/SwiftDigest/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Sources/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
@@ -757,7 +759,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "$(SRCROOT)/SwiftDigest/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Sources/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;

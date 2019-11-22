@@ -3,7 +3,7 @@ import XCTest
 import CommonCrypto
 
 
-class MD5DigestPerformanceTests: XCTestCase {
+final class MD5DigestPerformanceTests: XCTestCase {
 
     static var hugeTestData: Data {
         var data = "All work and no play makes Jack a dull boy\n".data(using: .utf8)!
@@ -54,7 +54,7 @@ class MD5DigestPerformanceTests: XCTestCase {
         }
     }
 
-    func testMD5DigestShining() {
+    func NOtestMD5DigestShining() {
         let input = MD5DigestPerformanceTests.hugeTestData
 
         self.measure {
@@ -87,4 +87,12 @@ class MD5DigestPerformanceTests: XCTestCase {
             )
         }
     }
+    
+    static var allTests = [
+        ("testMD5DigestSmallMessage", testMD5DigestSmallMessage),
+        ("testCommonCryptoSmallMessage", testCommonCryptoSmallMessage),
+        //("testMD5DigestShining", testMD5DigestShining),
+        ("testCommonCryptoShining", testCommonCryptoShining),
+    ]
+
 }

@@ -2,7 +2,7 @@ import SwiftDigest
 import XCTest
 
 
-class MD5Tests: XCTestCase {
+final class MD5Tests: XCTestCase {
 
     func testEmpty() {
         XCTAssertEqual(
@@ -50,7 +50,7 @@ class MD5Tests: XCTestCase {
     }
 
     func test4KBytes() {
-        var input = String(repeating: "The quick brown fox jumps over the lazy dog.", count: 100)
+        let input = String(repeating: "The quick brown fox jumps over the lazy dog.", count: 100)
         XCTAssertEqual(
             input.utf8.md5,
             MD5Digest(rawValue: "7052292b1c02ae4b0b35fabca4fbd487")
@@ -58,7 +58,7 @@ class MD5Tests: XCTestCase {
     }
 
     func test4MBytes() {
-        var input = String(repeating: "The quick brown fox jumps over the lazy dog.", count: 100000)
+        let input = String(repeating: "The quick brown fox jumps over the lazy dog.", count: 100000)
         XCTAssertEqual(
             input.utf8.md5,
             MD5Digest(rawValue: "f8a4ffa8b1c902f072338caa1e4482ce")
@@ -84,4 +84,18 @@ class MD5Tests: XCTestCase {
         let digest = try! JSONDecoder().decode(Array<MD5Digest>.self, from: json).first!
         XCTAssertEqual(digest, sut)
     }
+    
+    static var allTests = [
+        ("testEmpty", testEmpty),
+        ("testData", testData),
+        ("testBytes", testBytes),
+        ("testFox1", testFox1),
+        ("testFox2", testFox2),
+        ("testTwoFooterChunks", testTwoFooterChunks),
+        ("test4KBytes", test4KBytes),
+        ("test4MBytes", test4MBytes),
+        ("testRecursive", testRecursive),
+        ("testEncoding", testEncoding),
+        ("testDecoding", testDecoding),
+    ]
 }
