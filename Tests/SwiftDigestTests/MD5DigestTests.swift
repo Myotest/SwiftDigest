@@ -84,18 +84,5 @@ public final class MD5DigestTests: XCTestCase {
         let digest = try! JSONDecoder().decode(Array<MD5Digest>.self, from: json).first!
         XCTAssertEqual(digest, sut)
     }
-    
-    public static var allTests = [
-        ("testEmpty", testEmpty),
-        ("testData", testData),
-        ("testBytes", testBytes),
-        ("testFox1", testFox1),
-        ("testFox2", testFox2),
-        ("testTwoFooterChunks", testTwoFooterChunks),
-        ("test4KBytes", test4KBytes),
-        ("test4MBytes", test4MBytes),
-        ("testRecursive", testRecursive),
-        ("testEncoding", testEncoding),
-        ("testDecoding", testDecoding),
-    ]
+
 }

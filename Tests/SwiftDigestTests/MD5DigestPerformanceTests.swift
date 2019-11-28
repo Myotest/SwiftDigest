@@ -45,8 +45,9 @@ public final class MD5DigestPerformanceTests: XCTestCase {
 
     }
 
-    #if !os(Linux)
     func testCommonCryptoSmallMessage() {
+        #if !os(Linux)
+
         let input = "The quick brown fox jumps over the lazy dog".data(using: .utf8)!
 
         self.measure {
@@ -68,9 +69,13 @@ public final class MD5DigestPerformanceTests: XCTestCase {
                 "9e107d9d372bb6826bd81d3542a419d6"
             )
         }
+
+        #endif
     }
 
     func testCommonCryptoShining() {
+        #if !os(Linux)
+
         let input = MD5DigestPerformanceTests.hugeTestData
 
         self.measure {
@@ -89,21 +94,8 @@ public final class MD5DigestPerformanceTests: XCTestCase {
                 "91ad3b24f924e7999f10c1accd3cd510"
             )
         }
+    
+        #endif
     }
-    #endif
-
-    #if !os(Linux)
-    public static var allTests = [
-        ("testMD5DigestSmallMessage", testMD5DigestSmallMessage),
-        //("testMD5DigestShining", testMD5DigestShining), // Too long
-        ("testCommonCryptoSmallMessage", testCommonCryptoSmallMessage),
-        ("testCommonCryptoShining", testCommonCryptoShining),
-    ]
-    #else
-    public static var allTests = [
-        ("testMD5DigestSmallMessage", testMD5DigestSmallMessage),
-        //("testMD5DigestShining", testMD5DigestShining), // Too long
-    ]
-    #endif
 
 }
