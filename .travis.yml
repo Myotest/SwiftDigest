@@ -1,42 +1,34 @@
+os: osx
+osx_image: xcode11.2
+language: swift
+
 env:
   global:
   - LC_CTYPE=en_US.UTF-8
   - LANG=en_US.UTF-8
+  jobs:
+    - destination='platform=iOS Simulator,OS=13.2.2,name=iPhone 11' scheme='SwiftDigest-Travis'
+    - destination='platform=iOS Simulator,OS=12.4,name=iPhone 8' scheme='SwiftDigest-Travis'
+    - destination='platform=iOS Simulator,OS=11.4,name=iPhone 7' scheme='SwiftDigest-Travis'
+    - destination='platform=macOS' scheme='SwiftDigest-Travis-macOS'
+
+script:
+  - xcodebuild clean test -destination "$destination" -scheme "$scheme" -disableAutomaticPackageResolution | xcpretty  -c; exit ${PIPESTATUS[0]}
 
 stages:
-  - test
+  - Swift
+  - Test
+  - Linux
 
 jobs:
   include:
-    - stage: test
-      os: osx
-      osx_image: xcode11.2
-      script:
-        - xcodebuild clean test -destination "platform=iOS Simulator,OS=13.2.2,name=iPhone 11" -project SwiftDigest.xcodeproj -scheme "SwiftDigest-Travis" ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO | xcpretty
-      name: "iOS 13.2"
-    - os: osx
-      osx_image: xcode11.2
-      script:
-        - xcodebuild clean test -destination "platform=iOS Simulator,OS=12.4,name=iPhone 8" -project SwiftDigest.xcodeproj -scheme "SwiftDigest-Travis" ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO | xcpretty
-      name: "iOS 12.4"
-    - os: osx
-      osx_image: xcode11.2
-      script:
-        - xcodebuild clean test -destination "platform=iOS Simulator,OS=11.4,name=iPhone 7" -project SwiftDigest.xcodeproj -scheme "SwiftDigest-Travis" ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO | xcpretty
-      name: "iOS 11.4"
-    - os: osx
-      osx_image: xcode11.2
-      script:
-        - xcodebuild clean test -destination "platform=macOS" -project SwiftDigest.xcodeproj -scheme "SwiftDigest-Travis-macOS" ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO | xcpretty
-      name: "macOS xcode"
-    - os: osx
-      osx_image: xcode11.2
-      script:
-        - swift test
+    - stage: Swift
+      script: swift test
       name: "macOS swift"
-    - os: linux
+    - stage: Linux
+      os: linux
       dist: bionic
-      sudo: required
+      language: c
       env: SWIFT_BRANCH=swift-5.1.2-release SWIFT_VERSION=swift-5.1.2-RELEASE
       install:
         - sudo apt-get install clang libicu-dev
