@@ -55,9 +55,9 @@ public final class MD5DigestPerformanceTests: XCTestCase {
 
             for _ in 1 ... 1000000 {
                 digestData.resetBytes(in: 0..<Int(CC_MD5_DIGEST_LENGTH))
-                digestData.withUnsafeMutableBytes { (digestBytes) -> Void in
-                    input.withUnsafeBytes { (messageBytes) -> Void in
-                        CC_MD5(messageBytes, CC_LONG(input.count), digestBytes)
+                digestData.withUnsafeMutableBytes { digestBytes in
+                    input.withUnsafeBytes { messageBytes in
+                        _ = CC_MD5(messageBytes.baseAddress, CC_LONG(input.count), digestBytes.baseAddress)
                     }
                 }
             }
@@ -81,9 +81,9 @@ public final class MD5DigestPerformanceTests: XCTestCase {
         self.measure {
             var digestData = Data(count: Int(CC_MD5_DIGEST_LENGTH))
 
-            digestData.withUnsafeMutableBytes { (digestBytes) -> Void in
-                input.withUnsafeBytes { (messageBytes) -> Void in
-                    CC_MD5(messageBytes, CC_LONG(input.count), digestBytes)
+            digestData.withUnsafeMutableBytes { digestBytes in
+                input.withUnsafeBytes { messageBytes in
+                    _ = CC_MD5(messageBytes.baseAddress, CC_LONG(input.count), digestBytes.baseAddress)
                 }
             }
 
