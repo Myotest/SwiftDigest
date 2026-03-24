@@ -1,0 +1,21 @@
+{
+    "version": "0.2",
+    "language": "en, en-US, en-GB",
+    "words": [
+        "fileprivate",
+        "linuxmain",
+        "Ruhe",
+        "xcpretty"
+    ],
+    "ignorePaths": [
+        "**/.cspell.json",
+        ".gitignore"
+    ],
+    "languageSettings": [
+        {
+            "languageId": "swift",
+            "locale": "en, en-US, en-GB",
+            "caseSensitive": true
+        }
+    ]
+}
