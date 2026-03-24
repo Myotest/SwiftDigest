@@ -5,8 +5,16 @@ on:
   pull_request:
 
 jobs:
+  version:
+    uses: Myotest/shared-workflows/.github/workflows/version.yml@v1.8.0
+    with:
+      tag_prefix: ""
+    secrets:
+      FF_MERGE_PAT: ${{ secrets.FF_MERGE_PAT }}    
+
   swift-macos:
     name: Swift (macOS)
+    needs: version
     runs-on: macos-26
     steps:
       - uses: actions/checkout@v6
@@ -15,6 +23,7 @@ jobs:
 
   xcode-ios:
     name: Xcode (iOS ${{ matrix.ios }})
+    needs: version
     runs-on: macos-26
     strategy:
       matrix:
@@ -32,6 +41,7 @@ jobs:
 
   xcode-macos:
     name: Xcode (macOS)
+    needs: version
     runs-on: macos-26
     steps:
       - uses: actions/checkout@v6
@@ -46,6 +56,7 @@ jobs:
 
   swift-linux:
     name: Swift ${{ matrix.swift }} (Linux)
+    needs: version
     runs-on: ubuntu-24.04
     strategy:
       matrix:
