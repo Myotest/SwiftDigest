@@ -1,0 +1,55 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  swift-macos:
+    name: Swift (macOS)
+    runs-on: macos-26
+    steps:
+      - uses: actions/checkout@v6
+      - name: swift test
+        run: swift test
+
+  xcode-ios:
+    name: Xcode (iOS ${{ matrix.ios }})
+    runs-on: macos-26
+    strategy:
+      matrix:
+        ios: ["26.2"]
+    steps:
+      - uses: actions/checkout@v6
+      - name: xcodebuild
+        run: |
+          set -o pipefail
+          xcodebuild clean test \
+            -destination "platform=iOS Simulator,OS=${{ matrix.ios }},name=iPhone 17" \
+            -scheme SwiftDigest-CI \
+            -disableAutomaticPackageResolution \
+            | xcpretty -c
+
+  xcode-macos:
+    name: Xcode (macOS)
+    runs-on: macos-26
+    steps:
+      - uses: actions/checkout@v6
+      - name: xcodebuild
+        run: |
+          set -o pipefail
+          xcodebuild clean test \
+            -destination "platform=macOS" \
+            -scheme SwiftDigest-CI-macOS \
+            -disableAutomaticPackageResolution \
+            | xcpretty -c
+
+  swift-linux:
+    name: Swift (Linux)
+    runs-on: ubuntu-24.04
+    container:
+      image: swift:6.2.4
+    steps:
+      - uses: actions/checkout@v6
+      - name: swift test
+        run: swift test

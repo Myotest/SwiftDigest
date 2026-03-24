@@ -2,10 +2,16 @@
     "version": "0.2",
     "language": "en, en-US, en-GB",
     "words": [
+        "Buildables",
         "fileprivate",
+        "iphonesimulator",
         "linuxmain",
+        "LLDB",
         "Ruhe",
-        "xcpretty"
+        "Testables",
+        "xcodeproj",
+        "xcpretty",
+        "xctest"
     ],
     "ignorePaths": [
         "**/.cspell.json",
