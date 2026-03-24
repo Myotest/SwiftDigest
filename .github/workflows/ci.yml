@@ -23,6 +23,7 @@ jobs:
 
   xcode-ios:
     name: Xcode (iOS ${{ matrix.ios }})
+    if: ${{ github.event_name == 'pull_request' || github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop'}}
     needs: version
     runs-on: macos-26
     strategy:
@@ -41,6 +42,7 @@ jobs:
 
   xcode-macos:
     name: Xcode (macOS)
+    if: ${{ github.event_name == 'pull_request' || github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop'}}
     needs: version
     runs-on: macos-26
     steps:
