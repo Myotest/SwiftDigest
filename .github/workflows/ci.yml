@@ -1,0 +1,71 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  version:
+    uses: Myotest/shared-workflows/.github/workflows/version.yml@v1.8.0
+    with:
+      tag_prefix: ""
+    secrets:
+      FF_MERGE_PAT: ${{ secrets.FF_MERGE_PAT }}    
+
+  swift-macos:
+    name: Swift (macOS)
+    needs: version
+    runs-on: macos-26
+    steps:
+      - uses: actions/checkout@v6
+      - name: swift test
+        run: swift test
+
+  xcode-ios:
+    name: Xcode (iOS ${{ matrix.ios }})
+    if: ${{ github.event_name == 'pull_request' || github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop'}}
+    needs: version
+    runs-on: macos-26
+    strategy:
+      matrix:
+        ios: ["26.2"]
+    steps:
+      - uses: actions/checkout@v6
+      - name: xcodebuild
+        run: |
+          set -o pipefail
+          xcodebuild clean test \
+            -destination "platform=iOS Simulator,OS=${{ matrix.ios }},name=iPhone 17" \
+            -scheme SwiftDigest-CI \
+            -disableAutomaticPackageResolution \
+            | xcpretty -c
+
+  xcode-macos:
+    name: Xcode (macOS)
+    if: ${{ github.event_name == 'pull_request' || github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop'}}
+    needs: version
+    runs-on: macos-26
+    steps:
+      - uses: actions/checkout@v6
+      - name: xcodebuild
+        run: |
+          set -o pipefail
+          xcodebuild clean test \
+            -destination "platform=macOS" \
+            -scheme SwiftDigest-CI-macOS \
+            -disableAutomaticPackageResolution \
+            | xcpretty -c
+
+  swift-linux:
+    name: Swift ${{ matrix.swift }} (Linux)
+    needs: version
+    runs-on: ubuntu-24.04
+    strategy:
+      matrix:
+        swift: ["5.10.1", "6.0.3", "6.1.3", "6.2.4"]
+    container:
+      image: swift:${{ matrix.swift }}
+    steps:
+      - uses: actions/checkout@v6
+      - name: swift test
+        run: swift test

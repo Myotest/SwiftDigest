@@ -1,0 +1,27 @@
+{
+    "version": "0.2",
+    "language": "en, en-US, en-GB",
+    "words": [
+        "Buildables",
+        "fileprivate",
+        "iphonesimulator",
+        "linuxmain",
+        "LLDB",
+        "Ruhe",
+        "Testables",
+        "xcodeproj",
+        "xcpretty",
+        "xctest"
+    ],
+    "ignorePaths": [
+        "**/.cspell.json",
+        ".gitignore"
+    ],
+    "languageSettings": [
+        {
+            "languageId": "swift",
+            "locale": "en, en-US, en-GB",
+            "caseSensitive": true
+        }
+    ]
+}

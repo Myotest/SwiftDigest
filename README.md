@@ -4,12 +4,15 @@ Copyright (c) 2017 Nikolai Ruhe.
 
 SwiftDigest is released under the MIT License.
 
+The original repository seems to no longer be maintained.
+We will maintain this fork for the foreseeable future, but we are not actively developing it.
+
 ## Contents
 
 This is a pure Swift implementation of the MD5 algorithm. I might add more algorithms in the future. Or not.
 
 The main purpose is to provide hashing through a pure Swift framework without dependencies other than
-Swift Foundation. Currently no effort has been taken to optimze the performance. When hashing more than a
+Swift Foundation. Currently no effort has been taken to optimize the performance. When hashing more than a
 couple of kilo bytes it might be better to use Apple's CommonCrypto implementation.
 
 ## Examples
