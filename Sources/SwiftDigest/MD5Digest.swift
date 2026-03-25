@@ -103,10 +103,10 @@ public struct MD5Digest : Hashable, RawRepresentable, LosslessStringConvertible,
 /// Pure Swift implementation of the MD5 algorithm.
 fileprivate struct MD5State {
 
-    var a = UInt32(0x67452301)
-    var b = UInt32(0xefcdab89)
-    var c = UInt32(0x98badcfe)
-    var d = UInt32(0x10325476)
+    var a: UInt32 = 0x67452301
+    var b: UInt32 = 0xefcdab89
+    var c: UInt32 = 0x98badcfe
+    var d: UInt32 = 0x10325476
 
     static let chunkSize = 64
     static let endOfMessageMarker: UInt8 = 0x80
@@ -147,7 +147,8 @@ fileprivate struct MD5State {
     @inline(__always) @discardableResult
     private mutating func feedFullChunks(in message: Data) -> Int {
         let chunkCount = message.count / MD5State.chunkSize
-        message.withUnsafeBytes { (pointer: UnsafePointer<UInt32>) -> Void in
+        message.withUnsafeBytes { (buffer: UnsafeRawBufferPointer) -> Void in
+            let pointer = buffer.baseAddress!.assumingMemoryBound(to: UInt32.self)
             var cursor = pointer
             for _ in 0 ..< chunkCount {
                 feed(chunkPointer: &cursor)

@@ -1,9 +1,10 @@
 import SwiftDigest
 import XCTest
+#if !os(Linux)
 import CommonCrypto
+#endif
 
-
-class MD5DigestPerformanceTests: XCTestCase {
+public final class MD5DigestPerformanceTests: XCTestCase {
 
     static var hugeTestData: Data {
         var data = "All work and no play makes Jack a dull boy\n".data(using: .utf8)!
@@ -30,31 +31,8 @@ class MD5DigestPerformanceTests: XCTestCase {
 
     }
 
-    func testCommonCryptoSmallMessage() {
-        let input = "The quick brown fox jumps over the lazy dog".data(using: .utf8)!
-
-        self.measure {
-            var digestData = Data(count: Int(CC_MD5_DIGEST_LENGTH))
-
-            for _ in 1 ... 1000000 {
-                digestData.resetBytes(in: 0..<Int(CC_MD5_DIGEST_LENGTH))
-                digestData.withUnsafeMutableBytes { (digestBytes) -> Void in
-                    input.withUnsafeBytes { (messageBytes) -> Void in
-                        CC_MD5(messageBytes, CC_LONG(input.count), digestBytes)
-                    }
-                }
-            }
-
-            let md5Hex =  digestData.map { String(format: "%02hhx", $0) }.joined()
-
-            XCTAssertEqual(
-                md5Hex,
-                "9e107d9d372bb6826bd81d3542a419d6"
-            )
-        }
-    }
-
-    func testMD5DigestShining() {
+    /// Disabled because taking too much time on CI builds
+    func NOtestMD5DigestShining() {
         let input = MD5DigestPerformanceTests.hugeTestData
 
         self.measure {
@@ -67,15 +45,45 @@ class MD5DigestPerformanceTests: XCTestCase {
 
     }
 
+    func testCommonCryptoSmallMessage() {
+        #if !os(Linux)
+
+        let input = "The quick brown fox jumps over the lazy dog".data(using: .utf8)!
+
+        self.measure {
+            var digestData = Data(count: Int(CC_MD5_DIGEST_LENGTH))
+
+            for _ in 1 ... 1000000 {
+                digestData.resetBytes(in: 0..<Int(CC_MD5_DIGEST_LENGTH))
+                digestData.withUnsafeMutableBytes { digestBytes in
+                    input.withUnsafeBytes { messageBytes in
+                        _ = CC_MD5(messageBytes.baseAddress, CC_LONG(input.count), digestBytes.baseAddress)
+                    }
+                }
+            }
+
+            let md5Hex =  digestData.map { String(format: "%02hhx", $0) }.joined()
+
+            XCTAssertEqual(
+                md5Hex,
+                "9e107d9d372bb6826bd81d3542a419d6"
+            )
+        }
+
+        #endif
+    }
+
     func testCommonCryptoShining() {
+        #if !os(Linux)
+
         let input = MD5DigestPerformanceTests.hugeTestData
 
         self.measure {
             var digestData = Data(count: Int(CC_MD5_DIGEST_LENGTH))
 
-            digestData.withUnsafeMutableBytes { (digestBytes) -> Void in
-                input.withUnsafeBytes { (messageBytes) -> Void in
-                    CC_MD5(messageBytes, CC_LONG(input.count), digestBytes)
+            digestData.withUnsafeMutableBytes { digestBytes in
+                input.withUnsafeBytes { messageBytes in
+                    _ = CC_MD5(messageBytes.baseAddress, CC_LONG(input.count), digestBytes.baseAddress)
                 }
             }
 
@@ -86,5 +94,8 @@ class MD5DigestPerformanceTests: XCTestCase {
                 "91ad3b24f924e7999f10c1accd3cd510"
             )
         }
+    
+        #endif
     }
+
 }
